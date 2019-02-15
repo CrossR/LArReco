@@ -3,7 +3,7 @@ ifndef PANDORA_LARCONTENT_DIR
 endif
 
 CC = g++
-CFLAGS = -c -g -fPIC -O2 -Wall -Wextra -Werror -pedantic -Wno-long-long -Wno-sign-compare -Wshadow -fno-strict-aliasing -std=c++14
+CFLAGS = -c -g -fPIC -O2 -Wall -Wextra -Werror -pedantic -Wno-long-long -Wno-sign-compare -Wshadow -fno-strict-aliasing -std=c++17
 ifdef BUILD_32BIT_COMPATIBLE
     CFLAGS += -m32
 endif
@@ -21,11 +21,10 @@ endif
 PROJECT_BINARY = $(PROJECT_DIR)/bin/PandoraInterface
 
 INCLUDES  = -I $(PROJECT_DIR)/include/
-INCLUDES += -I $(PANDORA_DIR)/PandoraSDK/include/
+INCLUDES += -I $(PANDORA_DIR)/include/
 INCLUDES += -I $(PANDORA_LARCONTENT_DIR)/
 ifdef MONITORING
     INCLUDES += -I $(shell root-config --incdir)
-    INCLUDES += -I $(PANDORA_DIR)/PandoraMonitoring/include/
 endif
 
 ifdef MONITORING

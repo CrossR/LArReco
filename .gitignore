@@ -1,0 +1,8 @@
+# Ignore build files
+CMakeFiles/
+bin/
+build/
+
+# Ignore built files
+*.d
+*.o
