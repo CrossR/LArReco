@@ -325,6 +325,7 @@
     <algorithm type = "LArTrackParticleBuilding"> 
         <PfoListName>TrackParticles3D</PfoListName> 
         <VertexListName>DaughterVertices3D</VertexListName> 
+        <MCParticleListName>Input</MCParticleListName> 
     </algorithm>
 
     <!-- Output list management -->
