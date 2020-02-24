@@ -280,6 +280,8 @@
         <InputPfoListName>TrackParticles3D</InputPfoListName>
         <OutputCaloHitListName>TrackCaloHits3D</OutputCaloHitListName>
         <OutputClusterListName>TrackClusters3D</OutputClusterListName>
+        <UseInterpolation>true</UseInterpolation>
+        <MCParticleListName>Input</MCParticleListName>
         <HitCreationTools>
             <tool type = "LArClearTransverseTrackHits"><MinViews>3</MinViews></tool>
             <tool type = "LArClearLongitudinalTrackHits"><MinViews>3</MinViews></tool>
@@ -343,7 +345,6 @@
     <algorithm type = "LArTrackParticleBuilding"> 
         <PfoListName>TrackParticles3D</PfoListName> 
         <VertexListName>DaughterVertices3D</VertexListName> 
-        <MCParticleListName>Input</MCParticleListName> 
     </algorithm>
 
     <!-- Output list management -->

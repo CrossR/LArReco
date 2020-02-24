@@ -16,6 +16,9 @@
     <algorithm type = "LArVisualMonitoring">
         <CaloHitListNames>CaloHitListU CaloHitListV CaloHitListW</CaloHitListNames>
         <ShowDetector>true</ShowDetector>
+        <!-- <ShowCurrentMCParticles>true</ShowCurrentMCParticles> -->
+        <!-- <MCParticleListName>Input</MCParticleListName> -->
+        <!-- <SaveEventPath>/home/scratch/tmpEvds/</SaveEventPath> -->
     </algorithm>
 
     <algorithm type = "LArMaster">
@@ -55,5 +58,6 @@
     <algorithm type = "LArVisualMonitoring">
         <ShowCurrentPfos>true</ShowCurrentPfos>
         <ShowDetector>true</ShowDetector>
+        <!-- <SaveEventPath>/home/scratch/tmpEvds/</SaveEventPath> -->
     </algorithm>
 </pandora>
