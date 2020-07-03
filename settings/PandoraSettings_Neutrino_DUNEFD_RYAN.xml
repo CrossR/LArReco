@@ -34,6 +34,7 @@
     <algorithm type = "LArTrackConsolidation">
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
+    <algorithm type = "LArHitWidthClusterMerging"/>
 
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
@@ -55,6 +56,7 @@
     <algorithm type = "LArTrackConsolidation">
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
+    <algorithm type = "LArHitWidthClusterMerging"/>
 
     <algorithm type = "LArClusteringParent">
         <algorithm type = "LArTrackClusterCreation" description = "ClusterFormation"/>
@@ -76,6 +78,7 @@
     <algorithm type = "LArTrackConsolidation">
         <algorithm type = "LArSimpleClusterCreation" description = "ClusterRebuilding"/>
     </algorithm>
+    <algorithm type = "LArHitWidthClusterMerging"/>
 
     <!-- VertexAlgorithms -->
     <algorithm type = "LArCutClusterCharacterisation">
@@ -340,11 +343,11 @@
     <algorithm type = "LArNeutrinoProperties">
         <NeutrinoPfoListName>NeutrinoParticles3D</NeutrinoPfoListName>
     </algorithm>
-    
-    <!-- Track and shower building --> 
-    <algorithm type = "LArTrackParticleBuilding"> 
-        <PfoListName>TrackParticles3D</PfoListName> 
-        <VertexListName>DaughterVertices3D</VertexListName> 
+
+    <!-- Track and shower building -->
+    <algorithm type = "LArTrackParticleBuilding">
+        <PfoListName>TrackParticles3D</PfoListName>
+        <VertexListName>DaughterVertices3D</VertexListName>
     </algorithm>
 
     <!-- Output list management -->

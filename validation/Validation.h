@@ -647,10 +647,11 @@ void FillTargetHistogramCollection(const std::string &histPrefix, const TargetRe
  *  @brief  Fill histograms in the provided histogram collection, using information in the provided primary result
  *
  *  @param  histPrefix the histogram prefix
+ *  @param  parameters the parameters
  *  @param  primaryResult the primary result
  *  @param  primaryHistogramCollection the primary histogram collection
  */
-void FillPrimaryHistogramCollection(const std::string &histPrefix, const PrimaryResult &primaryResult, PrimaryHistogramCollection &primaryHistogramCollection);
+void FillPrimaryHistogramCollection(const std::string &histPrefix, const Parameters &parameters, const PrimaryResult &primaryResult, PrimaryHistogramCollection &primaryHistogramCollection);
 
 /**
  *  @brief  Process histograms stored in the provided map e.g. calculating final efficiencies, normalising, etc.
@@ -666,7 +667,7 @@ Parameters::Parameters() :
     m_displayMatchedEvents(true),
     m_skipEvents(0),
     m_nEventsToProcess(std::numeric_limits<int>::max()),
-    m_applyUbooneFiducialCut(true),
+    m_applyUbooneFiducialCut(false),
     m_applySBNDFiducialCut(false),
     m_correctTrackShowerId(false),
     m_vertexXCorrection(0.495694f),

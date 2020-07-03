@@ -68,8 +68,6 @@ int ReadNextEvent(TChain *const pTChain, const int iEntry, SimpleMCEvent &simple
 
         pTChain->SetBranchAddress("interactionType", &simpleMCTarget.m_interactionType);
         pTChain->SetBranchAddress("mcNuanceCode", &simpleMCTarget.m_mcNuanceCode);
-        pTChain->SetBranchAddress("isNeutrino", &simpleMCTarget.m_isNeutrino);
-        pTChain->SetBranchAddress("isBeamParticle", &simpleMCTarget.m_isBeamParticle);
         pTChain->SetBranchAddress("isCosmicRay", &simpleMCTarget.m_isCosmicRay);
         pTChain->SetBranchAddress("targetVertexX", &simpleMCTarget.m_targetVertex.m_x);
         pTChain->SetBranchAddress("targetVertexY", &simpleMCTarget.m_targetVertex.m_y);
@@ -77,21 +75,27 @@ int ReadNextEvent(TChain *const pTChain, const int iEntry, SimpleMCEvent &simple
         pTChain->SetBranchAddress("recoVertexX", &simpleMCTarget.m_recoVertex.m_x);
         pTChain->SetBranchAddress("recoVertexY", &simpleMCTarget.m_recoVertex.m_y);
         pTChain->SetBranchAddress("recoVertexZ", &simpleMCTarget.m_recoVertex.m_z);
-        pTChain->SetBranchAddress("isCorrectNu", &simpleMCTarget.m_isCorrectNu);
-        pTChain->SetBranchAddress("isCorrectTB", &simpleMCTarget.m_isCorrectTB);
         pTChain->SetBranchAddress("isCorrectCR", &simpleMCTarget.m_isCorrectCR);
-        pTChain->SetBranchAddress("isFakeNu", &simpleMCTarget.m_isFakeNu);
         pTChain->SetBranchAddress("isFakeCR", &simpleMCTarget.m_isFakeCR);
-        if (!parameters.m_testBeamMode)
-        {
-            pTChain->SetBranchAddress("isSplitNu", &simpleMCTarget.m_isSplitNu);
-        }
         pTChain->SetBranchAddress("isSplitCR", &simpleMCTarget.m_isSplitCR);
         pTChain->SetBranchAddress("isLost", &simpleMCTarget.m_isLost);
         pTChain->SetBranchAddress("nTargetMatches", &simpleMCTarget.m_nTargetMatches);
-        pTChain->SetBranchAddress("nTargetNuMatches", &simpleMCTarget.m_nTargetNuMatches);
         pTChain->SetBranchAddress("nTargetCRMatches", &simpleMCTarget.m_nTargetCRMatches);
         pTChain->SetBranchAddress("nTargetPrimaries", &simpleMCTarget.m_nTargetPrimaries);
+
+        if (parameters.m_testBeamMode)
+        {
+            pTChain->SetBranchAddress("isBeamParticle", &simpleMCTarget.m_isBeamParticle);
+            pTChain->SetBranchAddress("isCorrectTB", &simpleMCTarget.m_isCorrectTB);
+        }
+        else
+        {
+            pTChain->SetBranchAddress("isNeutrino", &simpleMCTarget.m_isNeutrino);
+            pTChain->SetBranchAddress("isCorrectNu", &simpleMCTarget.m_isCorrectNu);
+            pTChain->SetBranchAddress("isFakeNu", &simpleMCTarget.m_isFakeNu);
+            pTChain->SetBranchAddress("isSplitNu", &simpleMCTarget.m_isSplitNu);
+            pTChain->SetBranchAddress("nTargetNuMatches", &simpleMCTarget.m_nTargetNuMatches);
+        }
 
         IntVector *pMCPrimaryId(nullptr), *pMCPrimaryPdg(nullptr), *pNMCHitsTotal(nullptr), *pNMCHitsU(nullptr), *pNMCHitsV(nullptr), *pNMCHitsW(nullptr);
         FloatVector *pMCPrimaryE(nullptr), *pMCPrimaryPX(nullptr), *pMCPrimaryPY(nullptr), *pMCPrimaryPZ(nullptr);
@@ -118,7 +122,6 @@ int ReadNextEvent(TChain *const pTChain, const int iEntry, SimpleMCEvent &simple
         pTChain->SetBranchAddress("mcPrimaryNHitsV", &pNMCHitsV);
         pTChain->SetBranchAddress("mcPrimaryNHitsW", &pNMCHitsW);
         pTChain->SetBranchAddress("nPrimaryMatchedPfos", &pNPrimaryMatchedPfos);
-        pTChain->SetBranchAddress("nPrimaryMatchedNuPfos", &pNPrimaryMatchedNuPfos);
         pTChain->SetBranchAddress("nPrimaryMatchedCRPfos", &pNPrimaryMatchedCRPfos);
         pTChain->SetBranchAddress("bestMatchPfoNHitsTotal", &pBestMatchPfoNHitsTotal);
         pTChain->SetBranchAddress("bestMatchPfoNHitsU", &pBestMatchPfoNHitsU);
@@ -126,8 +129,6 @@ int ReadNextEvent(TChain *const pTChain, const int iEntry, SimpleMCEvent &simple
         pTChain->SetBranchAddress("bestMatchPfoNHitsW", &pBestMatchPfoNHitsW);
         pTChain->SetBranchAddress("bestMatchPfoId", &pBestMatchPfoId);
         pTChain->SetBranchAddress("bestMatchPfoPdg", &pBestMatchPfoPdg);
-        pTChain->SetBranchAddress("bestMatchPfoIsRecoNu", &pBestMatchPfoIsRecoNu);
-        pTChain->SetBranchAddress("bestMatchPfoRecoNuId", &pBestMatchPfoRecoNuId);
         pTChain->SetBranchAddress("bestMatchPfoNSharedHitsTotal", &pBestMatchPfoNSharedHitsTotal);
         pTChain->SetBranchAddress("bestMatchPfoNSharedHitsU", &pBestMatchPfoNSharedHitsU);
         pTChain->SetBranchAddress("bestMatchPfoNSharedHitsV", &pBestMatchPfoNSharedHitsV);
@@ -135,10 +136,13 @@ int ReadNextEvent(TChain *const pTChain, const int iEntry, SimpleMCEvent &simple
 
         if (parameters.m_testBeamMode)
         {
-            pTChain->SetBranchAddress("bestMatchPfoIsTestBeam", &pBestMatchPfoIsTestBeam);
+            pTChain->SetBranchAddress("bestMatchPfoIsTB", &pBestMatchPfoIsTestBeam);
         }
         else
         {
+            pTChain->SetBranchAddress("nPrimaryMatchedNuPfos", &pNPrimaryMatchedNuPfos);
+            pTChain->SetBranchAddress("bestMatchPfoIsRecoNu", &pBestMatchPfoIsRecoNu);
+            pTChain->SetBranchAddress("bestMatchPfoRecoNuId", &pBestMatchPfoRecoNuId);
             pTChain->SetBranchAddress("nTargetGoodNuMatches", &simpleMCTarget.m_nTargetGoodNuMatches);
             pTChain->SetBranchAddress("nTargetNuSplits", &simpleMCTarget.m_nTargetNuSplits);
             pTChain->SetBranchAddress("nTargetNuLosses", &simpleMCTarget.m_nTargetNuLosses);
@@ -169,12 +173,9 @@ int ReadNextEvent(TChain *const pTChain, const int iEntry, SimpleMCEvent &simple
             simpleMCPrimary.m_nMCHitsV = pNMCHitsV->at(iPrimary);
             simpleMCPrimary.m_nMCHitsW = pNMCHitsW->at(iPrimary);
             simpleMCPrimary.m_nPrimaryMatchedPfos = pNPrimaryMatchedPfos->at(iPrimary);
-            simpleMCPrimary.m_nPrimaryMatchedNuPfos = pNPrimaryMatchedNuPfos->at(iPrimary);
             simpleMCPrimary.m_nPrimaryMatchedCRPfos = pNPrimaryMatchedCRPfos->at(iPrimary);
             simpleMCPrimary.m_bestMatchPfoId = pBestMatchPfoId->at(iPrimary);
             simpleMCPrimary.m_bestMatchPfoPdgCode = pBestMatchPfoPdg->at(iPrimary);
-            simpleMCPrimary.m_bestMatchPfoIsRecoNu = pBestMatchPfoIsRecoNu->at(iPrimary);
-            simpleMCPrimary.m_bestMatchPfoRecoNuId = pBestMatchPfoRecoNuId->at(iPrimary);
             simpleMCPrimary.m_bestMatchPfoNHitsTotal = pBestMatchPfoNHitsTotal->at(iPrimary);
             simpleMCPrimary.m_bestMatchPfoNHitsU = pBestMatchPfoNHitsU->at(iPrimary);
             simpleMCPrimary.m_bestMatchPfoNHitsV = pBestMatchPfoNHitsV->at(iPrimary);
@@ -187,6 +188,12 @@ int ReadNextEvent(TChain *const pTChain, const int iEntry, SimpleMCEvent &simple
             if (parameters.m_testBeamMode)
             {
                 simpleMCPrimary.m_bestMatchPfoIsTestBeam = pBestMatchPfoIsTestBeam->at(iPrimary);
+            }
+            else
+            {
+                simpleMCPrimary.m_nPrimaryMatchedNuPfos = pNPrimaryMatchedNuPfos->at(iPrimary);
+                simpleMCPrimary.m_bestMatchPfoIsRecoNu = pBestMatchPfoIsRecoNu->at(iPrimary);
+                simpleMCPrimary.m_bestMatchPfoRecoNuId = pBestMatchPfoRecoNuId->at(iPrimary);
             }
 
             simpleMCTarget.m_mcPrimaryList.push_back(simpleMCPrimary);
@@ -358,6 +365,9 @@ void CountPfoMatches(const SimpleMCEvent &simpleMCEvent, const Parameters &param
 
             if ((simpleMCPrimary.m_nPrimaryMatchedPfos > 0) && primaryResult.m_isCorrectParticleId)
                 ++countingDetails.m_correctId;
+
+            if (parameters.m_correctTrackShowerId && !primaryResult.m_isCorrectParticleId)
+                targetResult.m_isCorrect = false;
 
             const float pTot(std::sqrt(simpleMCPrimary.m_momentum.m_x * simpleMCPrimary.m_momentum.m_x + simpleMCPrimary.m_momentum.m_y * simpleMCPrimary.m_momentum.m_y + simpleMCPrimary.m_momentum.m_z * simpleMCPrimary.m_momentum.m_z));
             primaryResult.m_trueMomentum = pTot;
@@ -561,7 +571,11 @@ void AnalyseInteractionTargetResultMap(const InteractionTargetResultMap &interac
                 {
                     const std::string histPrefix(parameters.m_histPrefix + ToString(interactionType) + "_" + ToString(expectedPrimary) + "_");
                     PrimaryHistogramCollection &histogramCollection(interactionPrimaryHistogramMap[interactionType][expectedPrimary]);
-                    FillPrimaryHistogramCollection(histPrefix, primaryResult, histogramCollection);
+                    FillPrimaryHistogramCollection(histPrefix, parameters, primaryResult, histogramCollection);
+
+                    const std::string histPrefixAll(parameters.m_histPrefix + ToString(ALL_INTERACTIONS) + "_" + ToString(expectedPrimary) + "_");
+                    PrimaryHistogramCollection &histogramCollectionAll(interactionPrimaryHistogramMap[ALL_INTERACTIONS][expectedPrimary]);
+                    FillPrimaryHistogramCollection(histPrefixAll, parameters, primaryResult, histogramCollectionAll);
                 }
             }
 
@@ -570,6 +584,10 @@ void AnalyseInteractionTargetResultMap(const InteractionTargetResultMap &interac
                 const std::string histPrefix(parameters.m_histPrefix + ToString(interactionType) + "_");
                 TargetHistogramCollection &histogramCollection(interactionTargetHistogramMap[interactionType]);
                 FillTargetHistogramCollection(histPrefix, targetResult, histogramCollection);
+
+                const std::string histPrefixAll(parameters.m_histPrefix + ToString(ALL_INTERACTIONS) + "_");
+                TargetHistogramCollection &histogramCollectionAll(interactionTargetHistogramMap[ALL_INTERACTIONS]);
+                FillTargetHistogramCollection(histPrefixAll, targetResult, histogramCollectionAll);
             }
         }
 
@@ -634,7 +652,7 @@ void FillTargetHistogramCollection(const std::string &histPrefix, const TargetRe
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-void FillPrimaryHistogramCollection(const std::string &histPrefix, const PrimaryResult &primaryResult, PrimaryHistogramCollection &primaryHistogramCollection)
+void FillPrimaryHistogramCollection(const std::string &histPrefix, const Parameters &parameters, const PrimaryResult &primaryResult, PrimaryHistogramCollection &primaryHistogramCollection)
 {
     const int nHitBins(35); const int nHitBinEdges(nHitBins + 1);
     float hitsBinning[nHitBinEdges];
@@ -696,7 +714,8 @@ void FillPrimaryHistogramCollection(const std::string &histPrefix, const Primary
     primaryHistogramCollection.m_hHitsAll->Fill(primaryResult.m_nMCHitsTotal);
     primaryHistogramCollection.m_hMomentumAll->Fill(primaryResult.m_trueMomentum);
 
-    if (primaryResult.m_nPfoMatches > 0)
+    if ((primaryResult.m_nPfoMatches > 0) &&
+        (!parameters.m_correctTrackShowerId || primaryResult.m_isCorrectParticleId))
     {
         primaryHistogramCollection.m_hHitsEfficiency->Fill(primaryResult.m_nMCHitsTotal);
         primaryHistogramCollection.m_hMomentumEfficiency->Fill(primaryResult.m_trueMomentum);
