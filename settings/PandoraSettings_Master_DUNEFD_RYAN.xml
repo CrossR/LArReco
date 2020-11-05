@@ -34,7 +34,7 @@
         </SliceIdTools>
         <InputHitListName>CaloHitList2D</InputHitListName>
         <InputMCParticleListName>Input</InputMCParticleListName>
-        <PassMCParticlesToWorkerInstances>false</PassMCParticlesToWorkerInstances>
+        <PassMCParticlesToWorkerInstances>true</PassMCParticlesToWorkerInstances>
         <RecreatedPfoListName>RecreatedPfos</RecreatedPfoListName>
         <RecreatedClusterListName>RecreatedClusters</RecreatedClusterListName>
         <RecreatedVertexListName>RecreatedVertices</RecreatedVertexListName>
@@ -56,5 +56,7 @@
     <algorithm type = "LArVisualMonitoring">
         <ShowCurrentPfos>true</ShowCurrentPfos>
         <ShowDetector>true</ShowDetector>
+        <ShowCurrentClusters>true</ShowCurrentClusters>
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
     </algorithm>
 </pandora>

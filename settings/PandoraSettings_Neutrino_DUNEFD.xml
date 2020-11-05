@@ -180,8 +180,16 @@
         <PathLengthRatioCut>1.012</PathLengthRatioCut>
         <ShowerWidthRatioCut>0.2</ShowerWidthRatioCut>
     </algorithm>
+    <algorithm type = "LArClusterDumping">
+        <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
+        <RecoStatus>Before</RecoStatus>
+    </algorithm>
     <algorithm type = "LArShowerGrowing">
         <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
+    </algorithm>
+    <algorithm type = "LArClusterDumping">
+        <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
+        <RecoStatus>After</RecoStatus>
     </algorithm>
     <algorithm type = "LArThreeDShowers">
         <InputClusterListNameU>ClustersU</InputClusterListNameU>
@@ -383,6 +391,11 @@
     <algorithm type = "LArTrackParticleBuilding">
         <PfoListName>TrackParticles3D</PfoListName>
         <VertexListName>DaughterVertices3D</VertexListName>
+    </algorithm>
+
+    <algorithm type = "LArClusterDumping">
+        <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
+        <RecoStatus>End</RecoStatus>
     </algorithm>
 
     <!-- Output list management -->
