@@ -184,6 +184,7 @@
         <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
         <RecoStatus>Before</RecoStatus>
     </algorithm>
+    <!-- <algorithm type = "LArCheatingShowerGrowing"> -->
     <algorithm type = "LArShowerGrowing">
         <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
     </algorithm>
