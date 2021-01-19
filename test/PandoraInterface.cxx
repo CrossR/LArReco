@@ -18,6 +18,10 @@
 #include "larpandoracontent/LArPlugins/LArPseudoLayerPlugin.h"
 #include "larpandoracontent/LArPlugins/LArRotationalTransformationPlugin.h"
 
+#ifdef LIBTORCH_DL
+#include "larpandoradlcontent/LArDLContent.h"
+#endif
+
 #include "PandoraInterface.h"
 
 #ifdef MONITORING
@@ -83,6 +87,9 @@ void CreatePandoraInstances(const Parameters &parameters, const Pandora *&pPrima
 {
     pPrimaryPandora = new Pandora();
     PANDORA_THROW_RESULT_IF(STATUS_CODE_SUCCESS, !=, LArContent::RegisterAlgorithms(*pPrimaryPandora));
+#ifdef LIBTORCH_DL
+    PANDORA_THROW_RESULT_IF(STATUS_CODE_SUCCESS, !=, LArDLContent::RegisterAlgorithms(*pPrimaryPandora));
+#endif
     PANDORA_THROW_RESULT_IF(STATUS_CODE_SUCCESS, !=, LArContent::RegisterBasicPlugins(*pPrimaryPandora));
 
     if (!pPrimaryPandora)
@@ -203,6 +210,16 @@ bool ProcessRecoOption(const std::string &recoOption, Parameters &parameters)
         parameters.m_shouldRunCosmicRecoOption = false;
         parameters.m_shouldPerformSliceId = false;
     }
+    else if ("nostitchingcr" == chosenRecoOption)
+    {
+        parameters.m_shouldRunAllHitsCosmicReco = false;
+        parameters.m_shouldRunStitching = false;
+        parameters.m_shouldRunCosmicHitRemoval = false;
+        parameters.m_shouldRunSlicing = false;
+        parameters.m_shouldRunNeutrinoRecoOption = false;
+        parameters.m_shouldRunCosmicRecoOption = true;
+        parameters.m_shouldPerformSliceId = false;
+    } 
     else if ("allhitsnu" == chosenRecoOption)
     {
         parameters.m_shouldRunAllHitsCosmicReco = false;
@@ -282,6 +299,12 @@ void ProcessExternalParameters(const Parameters &parameters, const Pandora *cons
     pEventSteeringParameters->m_shouldPerformSliceId = parameters.m_shouldPerformSliceId;
     pEventSteeringParameters->m_printOverallRecoStatus = parameters.m_printOverallRecoStatus;
     PANDORA_THROW_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraApi::SetExternalParameters(*pPandora, "LArMaster", pEventSteeringParameters));
+
+#ifdef LIBTORCH_DL
+    auto *const pEventSettingsParametersCopy = new lar_content::MasterAlgorithm::ExternalSteeringParameters(*pEventSteeringParameters);
+    PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, pandora::ExternallyConfiguredAlgorithm::SetExternalParameters(*pPandora,
+        "LArDLMaster", pEventSettingsParametersCopy));
+#endif
 }
 
 } // namespace lar_reco

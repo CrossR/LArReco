@@ -11,8 +11,8 @@ project(LArReco)
 
 # project version
 set(${PROJECT_NAME}_VERSION_MAJOR 03)
-set(${PROJECT_NAME}_VERSION_MINOR 17)
-set(${PROJECT_NAME}_VERSION_PATCH 00)
+set(${PROJECT_NAME}_VERSION_MINOR 22)
+set(${PROJECT_NAME}_VERSION_PATCH 03)
 set(${PROJECT_NAME}_VERSION "${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_VERSION_MINOR}.${${PROJECT_NAME}_VERSION_PATCH}")
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
@@ -22,10 +22,18 @@ include(PandoraCMakeSettings)
 # Prefer local include directory to any paths to installed header files
 include_directories(include)
 
-find_package(PandoraSDK 03.04.00 REQUIRED)
-find_package(LArContent 03.17.00 REQUIRED)
+find_package(PandoraSDK 03.04.01 REQUIRED)
 
-foreach(package PandoraSDK LArContent)
+set(LAR_CONTENT_LIBRARY_NAME "LArContent")
+find_package(${LAR_CONTENT_LIBRARY_NAME} 03.22.03 REQUIRED)
+
+if(PANDORA_LIBTORCH)
+    set(LAR_DL_CONTENT_LIBRARY_NAME "LArDLContent")
+    find_package(${LAR_DL_CONTENT_LIBRARY_NAME} 03.22.03 REQUIRED)
+    add_definitions(-DLIBTORCH_DL=1)
+endif()
+
+foreach(package PandoraSDK ${LAR_CONTENT_LIBRARY_NAME} ${LAR_DL_CONTENT_LIBRARY_NAME})
     if(${package}_FOUND)
         include_directories(${${package}_INCLUDE_DIRS})
         link_libraries(${${package}_LIBRARIES})
