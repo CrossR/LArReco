@@ -283,7 +283,6 @@
         <InputPfoListName>TrackParticles3D</InputPfoListName>
         <OutputCaloHitListName>TrackCaloHits3D</OutputCaloHitListName>
         <OutputClusterListName>TrackClusters3D</OutputClusterListName>
-        <UseInterpolation>true</UseInterpolation>
         <MCParticleListName>Input</MCParticleListName>
         <HitCreationTools>
             <tool type = "LArClearTransverseTrackHits"><MinViews>3</MinViews></tool>
@@ -293,6 +292,7 @@
             <tool type = "LArClearTransverseTrackHits"><MinViews>2</MinViews></tool>
             <tool type = "LArClearLongitudinalTrackHits"><MinViews>2</MinViews></tool>
             <tool type = "LArMultiValuedLongitudinalTrackHits"><MinViews>2</MinViews></tool>
+            <tool type = "LArRANSACMethod" />
         </HitCreationTools>
     </algorithm>
     <algorithm type = "LArThreeDHitCreation">
